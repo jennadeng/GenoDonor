@@ -2,36 +2,179 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script type="text/javascript" src="/js/javascript.js"></script>
   </head>
   <body>
-    <div class="container">
-      <div class="page-header">
-        <p class="lead">GENOME LINK example</p>
+
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+           <a class="navbar-brand color-me" href="http://localhost:8000">Login</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#about-me">About</a></li>
+              <li><a href="#portfolio">Press</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div> <!-- container -->
+      </nav>
+
+      <header class="jumbotron text-center" id="home">
+        <div class="container home-intro">
+          <h1>GenomDonor</h1>
+          <hr class="separator separator-white">
+            <h3>Your Family, Our Mission</h3>
+            <div class="row">
+              <button class="btn btn-primary">Register Today</button>
+              <button class="btn btn-primary">Apply to be A Donor</button>
+            </div>
+        </div>
+      </header>
+
+      <div id="about-me" class="content-container">
+        <div class="container">
+          <div class="row text-center">
+            <h1>About Us</h1>
+            <hr class="separator separator-white">
+            <div class="col-md-4 ">
+              <img src="/img/icons8-family-100.png"></img>
+              <h3>Your Family, Your Terms</h3>
+              <p>
+                With advancements in technology with have the ability to help you form your ideal family no matter what a family means to you,
+                Wether you are a LGBTQ member or simply not sold on the traditional conventions of marriage,
+                GenomDonor can help find the prefect donor for you on a genetics deep level.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <img src="/img/icons8-medal-first-place-100.png"></img>
+              <h3>Unlimited Imagination to Infinite Possibilities</h3>
+              <p>
+                Give your child a head start in life by ensuring that their sperm donor’s genetic information contains no history of disease or mental illness.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <img src="/img/icons8-multiple-choice-80.png"></img>
+              <h3>Your Child, Your Choice</h3>
+              <p>
+                With our break through technology in the GenomeLink API we are able to provide information that traditional
+                sperm donation services are simply not able to. Be able to chose traits from personality, physical, intelligence and more.
+              </p>
+            </div>
+          </div> <!-- row -->
+        </div> <!-- container -->
+      </div> <!-- content section -->
+
+      <section id="portfolio" class="content-container">
+        <div class="container">
+          <div class="row text-center">
+            <h1>
+              <span class="portblue">Success Story</span>
+            </h1>
+            <hr class="separator separator-blue">
+          </div>  <!-- row end -->
+          <div class="row">
+            <div class="col-md-4 portfolio-item">
+            <figure class="effect-portfolio">
+              <img src="/img/family-1.jpg">
+              <figcaption>
+                <h2>ALL I NEED</h2>
+                <p>My dreams have come true.</p>
+                <a href="" target='_blank'>View more</a>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="col-md-4 portfolio-item">
+            <figure class="effect-portfolio">
+              <img src="/img/family-2.jpg">
+              <figcaption>
+                <h2>OUR FAMILY IS COMPLETE</h2>
+                <p>Thank you GenomDonor for being everything.</p>
+                <a href="" target='_blank'>View more</a>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="col-md-4 portfolio-item">
+            <figure class="effect-portfolio">
+              <img src="/img/family-3.jpg">
+              <figcaption>
+                <h2>BETTER THAN I COULD DREAM</h2>
+                <p>GenomDonor made this possible for us.</p>
+                <a href="" target='_blank'>View more</a>
+              </figcaption>
+            </figure>
+          </div>
+          <!-- end column -->
+          <div class="col-md-4 portfolio-item">
+            <figure class="effect-portfolio">
+              <img src="/img/family-4.jpg">
+              <figcaption>
+                <h2>MEET MY ANGEL</h2>
+                <p>Trust 100%, would recommand 100%</p>
+                <a href="" target='_blank'>View more</a>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="col-md-4 portfolio-item">
+            <figure class="effect-portfolio">
+              <img src="/img/family-5.jpg">
+              <figcaption>
+                <h2>THE PREFECT SERVICE</h2>
+                <p>GenomDonor is prefect service for a deverse society!</p>
+                <a href="" target='_blank'>View more</a>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="col-md-4 portfolio-item">
+            <figure class="effect-portfolio">
+              <img  src="/img/family-6.jpg">
+              <figcaption>
+                <h2>I IMAGINE ANY OTHER LIFE</h2>
+                <p>GenomDonor changed my life and gave me a chance to be a mother.</p>
+                <a href="" target='_blank'>View more</a>
+              </figcaption>
+            </figure>
+          </div>
+          <!-- end column -->
+        </div>
+        <!-- end row -->
       </div>
-
-      <% if (authorize_url) { %>
-      <a href="<%= authorize_url %>" class="btn btn-default">Connect with genome</a>
-      <% } %>
-
-      <% if (reports.length > 0) { %>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Genetic insights</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (let report of reports) { %>
-          <tr>
-            <th scope="row"><%= report.phenotype.display_name %></th>
-            <td><%= report.summary.text %></td>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
-      <% } %>
-
-    </div>
+      <!-- end container -->
+    </section>
+    <div id="contact" class="content-container">
+        <div class="container">
+          <h1 class="text-center">Get In Touch</h1>
+            <ul class="social-media text-center">
+              <li>
+                <a href="" target="_blank" id="facebook"><i class="fa fa-facebook-official"></i></a>
+              </li>
+              <li>
+                <a href="" target="_blank" id="twitter"><i class="fa fa-twitter"></i></a>
+              <li>
+                <a href="" target="_blank" id="github"><i class="fa fa-github-square"></i></a>
+              </li>
+              <li>
+                <a href="" target="_blank" id="ffc"><i class="fa fa-fire"></i></a>
+              </li>
+              <li>
+                <a href="" target="_blank" id="linkedin"><i class="fa fa-linkedin-square"></i></a>
+              </li>
+              <li>
+                <a href="" target="_blank" id="linkedin"><i class="fa fa-codepen"></i></a>
+              </li>
+            </ul>
+          </div> <!-- row -->
+        </div> <!-- container -->
+      </div> <!-- contact id -->
   </body>
 </html>
