@@ -58,7 +58,7 @@ let myFilters = [];
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fetched: false , filters: []}
+    this.state = { fetched: false , filters: [] }
   }
 
   onChange(e) {
@@ -67,7 +67,7 @@ class App extends React.Component {
 
   state: {
     fetched: Boolean,
-    filters: Array;
+    filters: Array,
   }
 
   componentDidMount() {
@@ -89,13 +89,18 @@ class App extends React.Component {
     console.log('CHECKBOX:', e.target.name);
     if (myFilters.includes(e.target.name)) {
       let new_filters = myFilters.splice(myFilters.indexOf(e.target.name), 1);
-      console.log('FILTERS:', new_filters);
+      data = _.sortBy(data, function(item) {
+        return [item.details[myFilters[0]], item.details[myFilters[1]], item.details[myFilters[2]], item.details[myFilters[3]], item.details[myFilters[4]]] 
+      })
       this.setState({filters:new_filters});
     } else {
       let new_filters = myFilters.push(e.target.name);
-      console.log('FILTERS:', new_filters);
+      data = _.sortBy(data, function(item) {
+        return [item.details[myFilters[0]], item.details[myFilters[1]], item.details[myFilters[2]], item.details[myFilters[3]], item.details[myFilters[4]]]
+      })
       this.setState({filters:new_filters});
     }
+
   }
 
   render() {
@@ -105,6 +110,7 @@ class App extends React.Component {
     let checkListItems = keys.map((key) => 
       <Menu.Item> <Checkbox onChange ={this.filterHandler} name= {key}><span> {key}</span></Checkbox> </Menu.Item>
     );
+    
     console.log('filters is', myFilters);
 
   	return (
@@ -113,7 +119,15 @@ class App extends React.Component {
   		<Input placeholder="Genome Criteria" style={{ margin: '10px 17px', width: '170px', padding:  10}} mode="inline" />
   		<div className="logo" />
   		<Menu theme="light" defaultSelectedKeys={['1']} mode="inline">
+      <Menu.Item>
+      <span><Icon type="user" /><span>Users</span></span>
+      </Menu.Item>
+      <SubMenu
+      key="sub1"
+      title={<span><Icon type="eye-o" /><span>Filters</span></span>}
+      >
       {checkListItems}
+      </SubMenu>
   		</Menu>
   		</Sider>
   		<Layout>
@@ -129,7 +143,7 @@ class App extends React.Component {
           <p>Weight: {item.details.weight}</p>
           <p>Red Hair: {item.details["red-hair"]}</p>
           <p>Black Hair: {item.details["black-hair"]}</p>
-          <p>Longevity: {item.details.longevity}</p>
+          <p>Longevity: {item.details.longevity}</p> 
         </Card>
   			</List.Item>
   			)}
