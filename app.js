@@ -4,7 +4,7 @@ const genomeLink = require('genomelink-node');
 
 const app = express();
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/views'));
 
 app.use(session({
   secret: 'YOURSECRET',
@@ -18,7 +18,6 @@ app.use(session({
 app.get('/', async (req, res) => {
   const scope = 'report:eye-color report:beard-thickness report:morning-person';
   const authorizeUrl = genomeLink.OAuth.authorizeUrl({ scope: scope });
-
   // Fetching a protected resource using an OAuth2 token if exists.
   let reports = [];
   if (req.session.oauthToken) {
@@ -43,7 +42,7 @@ app.get('/callback', async (req, res) => {
   // callback URL. With this redirection comes an authorization code included
   // in the request URL. We will use that to obtain an access token.
   req.session.oauthToken = await genomeLink.OAuth.token({ requestUrl: req.url });
-
+  console.log(req.session);
   // At this point you can fetch protected resources but lets save
   // the token and show how this is done from a persisted token in index page.
   res.redirect('/');

@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.0.0",
     "ejs": "latest",
     "express": "latest",
     "express-session": "^1.15.6",
