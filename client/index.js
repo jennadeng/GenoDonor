@@ -77,6 +77,11 @@ class App extends React.Component {
   }
   render() {
 
+    let keys = Object.keys(data[0].details);
+    console.log(keys);
+    let checkListItems = keys.map((key) => 
+      <Menu.Item> <Checkbox><span> {key}</span></Checkbox> </Menu.Item>
+    );
 
   	return (
   		<Layout style={{ minHeight: '100rvh' }}>
@@ -86,15 +91,13 @@ class App extends React.Component {
   		<Menu theme="light" defaultSelectedKeys={['1']} mode="inline">
   		<Menu.Item key="1">
   		<Icon type="pie-chart" />
-  		<span>Option 1</span>
-  		</Menu.Item>
-  		<Menu.Item key="2">
-  		<Checkbox><span>Checkbox</span></Checkbox>
+  		<span>All Users</span>
   		</Menu.Item>
   		<SubMenu
   		key="sub1"
-  		title={<span><Icon type="user" /><span>User</span></span>}
+  		title={<span><Icon type="user" /><span>Filters</span></span>}
   		>
+      {checkListItems}
   		<Menu.Item key="3">Tom</Menu.Item>
   		<Menu.Item key="4">Bill</Menu.Item>
   		<Menu.Item key="5">Alex</Menu.Item>
