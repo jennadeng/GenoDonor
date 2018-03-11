@@ -145,17 +145,20 @@ class App extends React.Component {
       </Menu.Item>
       <SubMenu
       key="sub1"
-      title={<span><Icon type="eye-o" /><span>Filters</span></span>}
+      title={<span><Icon type="eye-o" /><span>Sort By</span></span>}
       >
       {checkListItems}
       </SubMenu>
       <Menu.Item>
-
+       <Icon type="shopping-cart" />Shopping Cart
+      </Menu.Item>
+      <Menu.Item>
+       <Icon type="environment-o" />Region
       </Menu.Item>
   		</Menu>
   		</Sider>
   		<Layout>
-  		<Header style={{ background: '#fff', padding: 0 }} />
+  		<Header style={{ background: '#fff', padding: 0}}> <h1 style={{paddingLeft: 25}}> Potential Donors </h1> </Header>
   		<Content style={{ margin: '16px 16px' }}>
   		<List
   		grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
@@ -164,6 +167,7 @@ class App extends React.Component {
   			<List.Item>
   			<Card title={item.details.name} extra={<span><Icon type="shopping-cart" /><a href="#"> Check Out</a></span>}>
           <Button type="primary" onClick={this.showModal}>More Details</Button>
+          <p> </p>
           <Modal
             title="Basic Modal"
             visible={this.state.visible}
