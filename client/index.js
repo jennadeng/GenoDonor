@@ -108,15 +108,15 @@ class App extends React.Component {
     console.log('CHECKBOX:', e.target.name);
     if (myFilters.includes(e.target.name)) {
       let new_filters = myFilters.splice(myFilters.indexOf(e.target.name), 1);
-      data = _.sortBy(data, function(item) {
+      data = _.reverse(_.sortBy(data, function(item) {
         return [item.details[myFilters[0]], item.details[myFilters[1]], item.details[myFilters[2]], item.details[myFilters[3]], item.details[myFilters[4]]] 
-      })
+      }))
       this.setState({filters:new_filters});
     } else {
       let new_filters = myFilters.push(e.target.name);
-      data = _.sortBy(data, function(item) {
+      data = _.reverse(_.sortBy(data, function(item) {
         return [item.details[myFilters[0]], item.details[myFilters[1]], item.details[myFilters[2]], item.details[myFilters[3]], item.details[myFilters[4]]]
-      })
+      }))
       this.setState({filters:new_filters});
     }
 
@@ -149,6 +149,9 @@ class App extends React.Component {
       >
       {checkListItems}
       </SubMenu>
+      <Menu.Item>
+
+      </Menu.Item>
   		</Menu>
   		</Sider>
   		<Layout>
@@ -159,8 +162,8 @@ class App extends React.Component {
   		dataSource={data}
   		renderItem={ (item) => (
   			<List.Item>
-  			<Card title={item.details.name}>
-          <Button type="primary" onClick={this.showModal}>Open</Button>
+  			<Card title={item.details.name} extra={<span><Icon type="shopping-cart" /><a href="#"> Check Out</a></span>}>
+          <Button type="primary" onClick={this.showModal}>More Details</Button>
           <Modal
             title="Basic Modal"
             visible={this.state.visible}
