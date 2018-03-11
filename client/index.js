@@ -124,7 +124,11 @@ class App extends React.Component {
 
   filterTags = (item) => {
     var filtertags = [];
-    myFilters.map((report)=>{filtertags.push(<p>{_.startCase(_.camelCase(report))}: {_.get(item.details,report,0)}</p>)});
+    myFilters.map((report)=>{
+      if (['height','weight','red-hair','black-hair','Longevity'].indexOf(report) == -1) {
+        filtertags.push(<p>{_.startCase(_.camelCase(report))}: {_.get(item.details,report,0)}</p>)
+      }
+    });
     return filtertags
   }
 
@@ -239,11 +243,11 @@ class App extends React.Component {
               <p>Word Reading Ability: {item.details["word-reading-ability"] || 0}</p>
             </List>
           </Modal>
-          <p>Height: {item.details.height}</p>
-          <p>Weight: {item.details.weight}</p>
-          <p>Red Hair: {item.details["red-hair"]}</p>
-          <p>Black Hair: {item.details["black-hair"]}</p>
-          <p>Longevity: {item.details.longevity}</p> 
+          <p>Height: {item.details.height || 0}</p>
+          <p>Weight: {item.details.weight || 0}</p>
+          <p>Red Hair: {item.details["red-hair"] || 0}</p>
+          <p>Black Hair: {item.details["black-hair"] || 0}</p>
+          <p>Longevity: {item.details.longevity || 0}</p> 
           {this.filterTags(item)}
         </Card>
   			</List.Item>
