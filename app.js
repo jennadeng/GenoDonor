@@ -76,13 +76,13 @@ function getUserData(userName){
 
 }
 
-results2 = {};
+results2 = [];
 
 for (var i =0; i< users.length; i++) {
-    console.log(users[i])
-    Promise.resolve(getUserData(users[i]))
-        .then((data)=>{
-          results2[users[i]] = data;
+    //console.log(users[i])
+    getUserData(users[i]).then((data)=>{
+        //  console.log(data);
+          results2.push(data);
     })
     .catch((err)=>{console.log(err);});
 }
