@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { LocaleProvider, DatePicker, message, Card, List, Layout, Select, Menu, Breadcrumb, Icon, Input, Checkbox } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-
+var _ = require('lodash');
 
 
 var data = [
@@ -51,68 +51,69 @@ var data = [
 ];
 
 
+// append to this when the cox is checked and removed when unchecked
+let myFilters = [];
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fetched: false }
+    this.state = { fetched: false , filters: []}
   }
+
   onChange(e) {
   	console.log(`checked = ${e.target.checked}`);
   }
 
   state: {
-    fetched: Boolean
+    fetched: Boolean,
+    filters: Array;
   }
+
   componentDidMount() {
-  	fetch('http://localhost:3000/users/GENOMELINKTEST001')
+  	fetch('http://localhost:3000/users')
   	.then(results => {
   		return results.json();
   	})
   	.then(backEndData => {
   		console.log(backEndData);
-      data[0].details = backEndData;
+      var i;
+      for(i = 0; i < 10 ; i++){
+        data[i].details = backEndData[i];
+      }
       this.setState({fetched: true});
   	})
   }
+
+  filterHandler = (e: Object) => {
+    console.log('CHECKBOX:', e.target.name);
+    if (myFilters.includes(e.target.name)) {
+      let new_filters = myFilters.splice(myFilters.indexOf(e.target.name), 1);
+      console.log('FILTERS:', new_filters);
+      this.setState({filters:new_filters});
+    } else {
+      let new_filters = myFilters.push(e.target.name);
+      console.log('FILTERS:', new_filters);
+      this.setState({filters:new_filters});
+    }
+  }
+
   render() {
 
     let keys = Object.keys(data[0].details);
-    console.log(keys);
+    console.log(keys)
     let checkListItems = keys.map((key) => 
-      <Menu.Item> <Checkbox><span> {key}</span></Checkbox> </Menu.Item>
+      <Menu.Item> <Checkbox onChange ={this.filterHandler} name= {key}><span> {key}</span></Checkbox> </Menu.Item>
     );
+    console.log('filters is', myFilters);
 
   	return (
   		<Layout style={{ minHeight: '100rvh' }}>
   		<Sider style={{ background: '#fff' }}>
-  		<Input placeholder="Genome Criteria" style={{ margin: '10px 17px', width: '180px', padding:  10}} mode="inline" />
+  		<Input placeholder="Genome Criteria" style={{ margin: '10px 17px', width: '170px', padding:  10}} mode="inline" />
   		<div className="logo" />
   		<Menu theme="light" defaultSelectedKeys={['1']} mode="inline">
-  		<Menu.Item key="1">
-  		<Icon type="pie-chart" />
-  		<span>All Users</span>
-  		</Menu.Item>
-  		<SubMenu
-  		key="sub1"
-  		title={<span><Icon type="user" /><span>Filters</span></span>}
-  		>
       {checkListItems}
-  		<Menu.Item key="3">Tom</Menu.Item>
-  		<Menu.Item key="4">Bill</Menu.Item>
-  		<Menu.Item key="5">Alex</Menu.Item>
-  		</SubMenu>
-  		<SubMenu
-  		key="sub2"
-  		title={<span><Icon type="team" /><span>Team</span></span>}
-  		>
-  		<Menu.Item key="6">Team 1</Menu.Item>
-  		<Menu.Item key="8">Team 2</Menu.Item>
-  		</SubMenu>
-  		<Menu.Item key="9">
-  		<Icon type="file" />
-  		<span>File</span>
-  		</Menu.Item>
   		</Menu>
   		</Sider>
   		<Layout>
