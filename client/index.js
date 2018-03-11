@@ -122,15 +122,17 @@ class App extends React.Component {
 
   }
 
-  render() {
+  filterTags = (item) => {
+    var filtertags = [];
+    myFilters.map((report)=>{filtertags.push(<p>{_.startCase(_.camelCase(report))}: {_.get(item.details,report,0)}</p>)});
+    return filtertags
+  }
 
+  render() {
     let keys = Object.keys(data[0].details);
-    console.log(keys)
     let checkListItems = keys.map((key) => 
       <Menu.Item> <Checkbox onChange ={this.filterHandler} name= {key}><span> {key}</span></Checkbox> </Menu.Item>
     );
-    
-    console.log('filters is', myFilters);
 
   	return (
   		<Layout style={{ minHeight: '100rvh' }}>
@@ -155,9 +157,9 @@ class App extends React.Component {
   		<List
   		grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
   		dataSource={data}
-  		renderItem={item => (
+  		renderItem={ (item) => (
   			<List.Item>
-  			<Card title={item.title}>
+  			<Card title={item.details.name}>
           <Button type="primary" onClick={this.showModal}>Open</Button>
           <Modal
             title="Basic Modal"
@@ -239,6 +241,7 @@ class App extends React.Component {
           <p>Red Hair: {item.details["red-hair"]}</p>
           <p>Black Hair: {item.details["black-hair"]}</p>
           <p>Longevity: {item.details.longevity}</p> 
+          {this.filterTags(item)}
         </Card>
   			</List.Item>
   			)}
