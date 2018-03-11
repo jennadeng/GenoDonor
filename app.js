@@ -2,9 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const genomeLink = require('genomelink-node');
 var Promise = require("bluebird");
+var fs = require("fs");
 var _ = require('lodash');
-const users = ['GENOMELINKTEST001','GENOMELINKTEST002','GENOMELINKTEST003','GENOMELINKTEST004','GENOMELINKTEST005','GENOMELINKTEST006','GENOMELINKTEST007','GENOMELINKTEST008','GENOMELINKTEST009','GENOMELINKTEST010'];
+cacheData();
 
+cachedData = JSON.parse(fs.readFileSync('data.json'))
+
+var num_returned = 0
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -63,33 +67,41 @@ function getUserData(userName){
         return object1
     }
 
-    result1 = {};
-
     return Promise.all(user_promise)
         .then((data) => {
+          var result1 = {};
+          num_returned +=1;
           _.reduce(data, parseData, result1);
-          obj ={};
-          obj[userName] = result1;
-          return obj
+          result1['name'] = userName;
+          return result1
         })
         .catch((err)=>{console.log(err)});
 
 }
 
-results2 = {};
+results2 = [];
 
-for (var i =0; i< users.length; i++) {
-    console.log(users[i])
-    Promise.resolve(getUserData(users[i]))
-        .then((data)=>{
-          results2[users[i]] = data;
-    })
-    .catch((err)=>{console.log(err);});
+function cacheData() {
+    const users = ['GENOMELINKTEST001','GENOMELINKTEST002','GENOMELINKTEST003','GENOMELINKTEST004','GENOMELINKTEST005','GENOMELINKTEST006','GENOMELINKTEST007','GENOMELINKTEST008','GENOMELINKTEST009','GENOMELINKTEST010'];
+    for (var i = 0; i < users.length; i++) {
+        console.log(users[i])
+        Promise.resolve(getUserData(users[i]))
+            .then((data) => {
+              results2.push(data);
+            })
+            .catch((err) => {console.log(err);});
+    }
 }
 
 app.get('/users', async (req, res) => {
-    console.log(results2)
-    res.json(results2);
+    console.log(num_returned);
+    if (num_returned != 10){
+      res.json(cachedData);
+    } else {
+        res.json(results2);
+        var json = JSON.stringify(results2);
+        fs.writeFile('data.json', json, 'utf8');
+    }
 });
 
 
