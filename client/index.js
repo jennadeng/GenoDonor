@@ -4,36 +4,49 @@ import { LocaleProvider, DatePicker, message, Card, List, Layout, Select, Menu, 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-const data = [
+
+
+var data = [
   {
-    title: 'Title 1',
+    title: 'User 1',
+    details: {},
   },
   {
-    title: 'Title 2',
+    title: 'User 2',
+    details: {},
   },
   {
-    title: 'Title 3',
+    title: 'User 3',
+    details: {},
   },
   {
-    title: 'Title 4',
+    title: 'User 4',
+    details: {},
   },
   {
-    title: 'Title 5',
+    title: 'User 5',
+    details: {},
   },
   {
-    title: 'Title 6',
+    title: 'User 6',
+    details: {},
   },
   {
-    title: 'Title 7',
+    title: 'User 7',
+    details: {},
   },
   {
-    title: 'Title 8',
+    title: 'User 8',
+    details: {},
+
   },
   {
-    title: 'Title 9',
+    title: 'User 9',
+    details: {},
   },
   {
-    title: 'Title 10',
+    title: 'User 10',
+    details: {},
   },
 ];
 
@@ -42,23 +55,29 @@ const data = [
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [],
-    };
+    this.state = { fetched: false }
   }
   onChange(e) {
   	console.log(`checked = ${e.target.checked}`);
+  }
+
+  state: {
+    fetched: Boolean
   }
   componentDidMount() {
   	fetch('http://localhost:3000/users/GENOMELINKTEST001')
   	.then(results => {
   		return results.json();
   	})
-  	.then(data => {
-  		console.log(data);
+  	.then(backEndData => {
+  		console.log(backEndData);
+      data[0].details = backEndData;
+      this.setState({fetched: true});
   	})
   }
   render() {
+
+
   	return (
   		<Layout style={{ minHeight: '100rvh' }}>
   		<Sider style={{ background: '#fff' }}>
@@ -101,7 +120,13 @@ class App extends React.Component {
   		dataSource={data}
   		renderItem={item => (
   			<List.Item>
-  			<Card title={item.title}>Card content</Card>
+  			<Card title={item.title}>
+          <p>Height: {item.details.height}</p>
+          <p>Weight: {item.details.weight}</p>
+          <p>Red Hair: {item.details["red-hair"]}</p>
+          <p>Black Hair: {item.details["black-hair"]}</p>
+          <p>Longevity: {item.details.longevity}</p>
+        </Card>
   			</List.Item>
   			)}
   		/>

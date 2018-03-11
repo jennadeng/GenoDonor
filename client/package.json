@@ -36,5 +36,5 @@
     "start": "dora --plugins webpack",
     "test": "atool-test-mocha ./**/__tests__/*-test.js"
   },
-"proxy": "http://localhost:3000/"
+  "proxy": "http://localhost:3000/"
 }
