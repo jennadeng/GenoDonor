@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "bluebird": "^3.5.1"
+    "bluebird": "^3.5.1",
     "bootstrap": "^4.0.0",
     "ejs": "latest",
     "express": "latest",
